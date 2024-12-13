@@ -2,6 +2,7 @@ window.requestAnimationFrame =
     window.__requestAnimationFrame ||
         window.requestAnimationFrame ||
         window.webkitRequestAnimationFrame ||
+        //comment comment comment
         window.mozRequestAnimationFrame ||
         window.oRequestAnimationFrame ||
         window.msRequestAnimationFrame ||

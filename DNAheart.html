@@ -1,4 +1,4 @@
-<!DOCTYPE html>
+<!-- <!DOCTYPE html>
 <html lang="en" >
 <head>
   <meta charset="UTF-8">
@@ -10,5 +10,62 @@
 <canvas id="heart"></canvas>
   <script  src="./script.js"></script>
 
+</body>
+</html> -->
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Static Heart</title>
+    <style>
+        body { margin: 0; display: flex; justify-content: center; align-items: center; height: 100vh; background: black; }
+        canvas { display: block; }
+    </style>
+</head>
+<body>
+    <canvas id="heartCanvas"></canvas>
+    <script>
+        const canvas = document.getElementById('heartCanvas');
+        const ctx = canvas.getContext('2d');
+
+        // Resize canvas to fill the screen
+        canvas.width = window.innerWidth;
+        canvas.height = window.innerHeight;
+
+        // Heart position function
+        function heartPosition(rad, scale = 1) {
+            return [
+                Math.pow(Math.sin(rad), 3) * scale, 
+                -(13 * Math.cos(rad) - 5 * Math.cos(2 * rad) - 2 * Math.cos(3 * rad) - Math.cos(4 * rad)) * scale
+            ];
+        }
+
+        // Draw heart shape
+        function drawHeart() {
+            const centerX = canvas.width / 2;
+            const centerY = canvas.height / 2;
+            const scale = 15; // Heart size multiplier
+
+            ctx.fillStyle = 'red';
+            ctx.beginPath();
+            for (let rad = 0; rad < Math.PI * 2; rad += 0.01) {
+                const [x, y] = heartPosition(rad, scale);
+                ctx.lineTo(centerX + x, centerY + y);
+            }
+            ctx.closePath();
+            ctx.fill();
+        }
+
+        // Clear and redraw on window resize
+        window.addEventListener('resize', () => {
+            canvas.width = window.innerWidth;
+            canvas.height = window.innerHeight;
+            drawHeart();
+        });
+
+        // Initial draw
+        drawHeart();
+    </script>
 </body>
 </html>
